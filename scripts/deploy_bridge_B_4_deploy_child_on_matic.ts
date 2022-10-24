@@ -1,0 +1,35 @@
+// We require the Hardhat Runtime Environment explicitly here. This is optional
+// but useful for running the script in a standalone fashion through `node <script>`.
+//
+// When running the script with `npx hardhat run <script>` you'll find the Hardhat
+// Runtime Environment's members available in the global scope.
+import { Wallet } from "ethers";
+import { ethers } from "hardhat";
+
+
+
+
+async function main() {
+
+
+
+
+  {
+    // https://docs.polygon.technology/docs/develop/l1-l2-communication/state-transfer
+    const Roc = await ethers.getContractFactory("FxERC20ChildTunnel");
+    const root = "0x535ff759ca042fBB1BD1c8B99AAC5452c4189302";
+    const address = "0xDBdd5D3094DDb81F43b314ef0e40D55423D768A7";
+    
+    const roc = await Roc.deploy(root,address);
+    const rocAddress = roc.address;
+    console.log("roc address", rocAddress);
+  }
+
+}
+
+// We recommend this pattern to be able to use async/await everywhere
+// and properly handle errors.
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
